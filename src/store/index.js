@@ -44,6 +44,9 @@ export default new Vuex.Store({
         },
         setMyDashboard (state, data) {
             state.myDashboard = data
+        },
+        setMyDashboardIndex (state, data) {
+            state.myDashboard = data
         }
     }
 })

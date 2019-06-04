@@ -16,7 +16,7 @@
                 <li><router-link to="/timeseries-hub">Timeseries Hub</router-link></li>
                 <li><a href="#">Microdata Hub</a></li>
                 <li><a href="#">Graph Hub</a></li>
-                <li><a href="#">Referencem Hub</a></li>
+                <li><a href="#">Reference Hub</a></li>
             </ul>
         </div>
     </header>

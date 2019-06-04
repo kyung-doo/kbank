@@ -55,6 +55,8 @@ export default {
             this.menuData = JSON.parse(JSON.stringify(this.$store.state.myData))
         } else if(this.type === 'graph') {
             this.menuData = JSON.parse(JSON.stringify(this.$store.state.myGraph))
+        } else if(this.type === 'dashboard') {
+            this.menuData = JSON.parse(JSON.stringify(this.$store.state.myDashboard))
         }
     },
 
@@ -77,6 +79,8 @@ export default {
                 this.$store.commit('setMyData', this.menuData)
             } else if(this.type === 'graph') {
                 this.$store.commit('setMyGraph', this.menuData)
+            } else if(this.type === 'dashboard') {
+                this.$store.commit('setMyDashboard', this.menuData)
             }
         },
 

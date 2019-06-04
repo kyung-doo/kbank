@@ -31,7 +31,7 @@
                 </dl>
 
                 <draggable
-                  class="graph-list gray-box"
+                  class="graph-list list-group gray-box"
                   :list="graphData.seriesData"
                   handle=".icon"
                   ghost-class="ghost"
@@ -161,7 +161,7 @@ export default {
         this.graphData.seriesData.splice(idx, 1)
         this.graphData.graphData.splice(idx, 1)
         this.showGraph()
-      },
+      }
     }
 }
 </script>

@@ -15,7 +15,7 @@
                 <li class="">
                     <a @click="clickMain(0)">데이터</a>
                     <ul>
-                      <li :class="{'active':i===0}" v-for="(list, i) in myDataList" :key="list.id">
+                      <li :class="{'active':i===0}" v-for="(list, i) in myDataList" :key="'data'+i">
                         <a @click="clickList(0,i)">⋅ {{ list.title }} ({{list.data.length}})</a>
                       </li>
                     </ul>
@@ -23,7 +23,7 @@
                 <li class="">
                     <a @click="clickMain(1)">그래프</a>
                     <ul>
-                      <li v-for="(list, i) in myGraphList" :key="list.id">
+                      <li v-for="(list, i) in myGraphList" :key="'graph'+i">
                         <a @click="clickList(1,i)">⋅ {{ list.title }} ({{list.data.length}})</a>
                       </li>
                     </ul>
@@ -31,7 +31,7 @@
                 <li class="">
                     <a @click="clickMain(2)">대시보드</a>
                     <ul>
-                      <li v-for="(list, i) in myDashboardList" :key="list.id">
+                      <li v-for="(list, i) in myDashboardList" :key="'dashboard'+i">
                         <a @click="clickList(2,i)">⋅ {{ list.title }} ({{list.data.length}})</a>
                       </li>
                     </ul>
@@ -45,7 +45,7 @@
                   <h3><i class="far fa-folder-open"></i> - {{myDataList[active2].title}}</h3>
 
                   <p class="dataBtn">
-                      <button type="button" class="btn btn-xs btn-white-line btn-short">삭제</button>
+                      <button type="button" class="btn btn-xs btn-white-line btn-short" @click="deleteList">삭제</button>
                       <button type="button" class="btn btn-xs btn-white-line btn-short">수정</button>
                   </p>
               </div>
@@ -112,9 +112,9 @@
                   <h3><i class="far fa-folder-open"></i> - {{myGraphList[active2].title}}</h3>
 
                   <p class="dataBtn">
-                      <button type="button" class="btn btn-xs btn-white-line btn-short">삭제</button>
+                      <button type="button" class="btn btn-xs btn-white-line btn-short" @click="deleteList">삭제</button>
                       <button type="button" class="btn btn-xs btn-white-line btn-short">수정</button>
-                      <button type="button" class="btn btn-xs btn-blue btn-short"><i class="fas fa-download mR5"></i> 대쉬보드에 추가</button>
+                      <button type="button" class="btn btn-xs btn-blue btn-short" @click="addGraphDashboard"><i class="fas fa-download mR5"></i> 대쉬보드에 추가</button>
                   </p>
               </div>
               <table class="table-default">
@@ -175,6 +175,25 @@
 
             </div>
 
+            <div v-else>
+              <div class="titleBlock clearfix">
+                  <h3><i class="far fa-folder-open"></i> - {{myDashboardList[active2].title}}</h3>
+                  <p class="dataBtn">
+                    <button type="button" class="btn btn-xs btn-blue btn-short" @click="clickDashboardChange"><i class="fas fa-exchange-alt mR5"></i> 그래프 순서변경</button>
+                  </p>
+              </div>
+              <div class="dashboardBlock clearfix">
+                  <div class="chart" v-for="(list, i) in setDataList" :key="i">
+                    <h2>{{list.graphName}}</h2>
+                    <high-stock :chart-data="list.graphData" :type="list.graphType" height="500" :legend="true"  :min="getMin(list)" :max="getMax(list)" />
+                  </div>
+                  <div class="no-data" v-if="setDataList.length == 0">
+                    리스트가 없습니다.
+                  </div>
+              </div>
+
+            </div>
+
           </div>
 
         </div>
@@ -193,6 +212,27 @@
     </transition>
     <!-- //graph-pop -->
 
+
+    <!-- Dashboard-add-popup -->
+    <transition name="popup-ani">
+      <Dashboard-add-popup 
+        v-if="addGraphData.length > 0"
+        :data="addGraphData"
+        @close="closeDashbAddPopup"  />
+    </transition>
+    <!-- //Dashboard-add-popup -->
+
+
+    <!-- Dashboard-change-popup -->
+    <transition name="popup-ani">
+      <Dashboard-change-popup 
+        v-if="changeDashboadData"
+        :data="changeDashboadData"
+        :idx="active2"
+        @close="closeDashbChangePopup"  />
+    </transition>
+    <!-- //Dashboard-change-popup -->
+
   </div>
 </template>
 
@@ -200,6 +240,9 @@
 
 import Paginate from 'vuejs-paginate'
 import GraphPopup from '../components/GraphPopup'
+import DashboardAddPopup from '../components/DashboardAddPopup'
+import DashboardChangePopup from '../components/DashboardChangePopup'
+import HighStock from '../components/HighStock'
 
 export default {
   name: 'Mypage',
@@ -207,7 +250,10 @@ export default {
 
   components:{
     Paginate,
-    GraphPopup
+    GraphPopup,
+    DashboardAddPopup,
+    DashboardChangePopup,
+    HighStock
   },
 
   data() {
@@ -220,9 +266,10 @@ export default {
       totalPage:1,
       currentPage:1,
       checked:[],
-      mainSize:[],
       showGraphData: null,
-      selectGraphIdx:0
+      addGraphData:[],
+      selectGraphIdx:0,
+      changeDashboadData: null
     }
   },
 
@@ -231,10 +278,14 @@ export default {
       let data
       if(this.active1 === 0) {
         data = this.myDataList[this.active2].data.slice().reverse();
+        return data.slice(10*(this.currentPage-1), 10*(this.currentPage))
       } else if(this.active1 === 1) {
         data = this.myGraphList[this.active2].data.slice().reverse();
-      }
-      return data.slice(10*(this.currentPage-1), 10*(this.currentPage))
+        return data.slice(10*(this.currentPage-1), 10*(this.currentPage))
+      } else if(this.active1 === 2) {
+        data = this.myDashboardList[this.active2].data.slice().reverse();
+        return data
+      } 
     },
     
     checkAll : {
@@ -251,27 +302,27 @@ export default {
         }
         this.checked = checked;
       }
-    
     }
   },
 
   mounted () {
     this.setPageNum()
-    this.$el.querySelectorAll('.lnb > li').forEach( ( el ) => {
-      el.style.height = el.offsetHeight+'px'
-      this.mainSize.push(el.offsetHeight)
+    const owner = this
+    setTimeout(() => {
+      owner.setMainSize()
     })
   },
 
   methods : {
     
     clickMain ( idx ) {
-      if(this.$el.querySelectorAll('.lnb > li')[idx].classList[0] == 'active') {
-        this.$el.querySelectorAll('.lnb > li')[idx].classList.remove('active')
-        this.$el.querySelectorAll('.lnb > li')[idx].style.height = this.mainSize[idx]+'px'
+      const el = this.$el.querySelectorAll('.lnb > li')[idx];
+      if(el.classList[0] == 'active') {
+        el.classList.remove('active')
+        el.style.height = (50 + el.querySelector('ul').offsetHeight)+'px'
       } else {
-        this.$el.querySelectorAll('.lnb > li')[idx].classList.add('active')
-        this.$el.querySelectorAll('.lnb > li')[idx].style.height= '50px'
+        el.classList.add('active')
+        el.style.height= '50px'
       }
     },
 
@@ -296,7 +347,33 @@ export default {
       this.checked = []
       this.currentPage = 1;
       this.setPageNum()
+      try{
+        this.$refs.paginate.selectFirstPage()
+      } catch( e ) {}
       
+    },
+
+    deleteList () {
+      if(this.active1 === 0) {
+        for(let i =0; i<this.checked.length; i++){
+          var num = this.checked.length-1-i;
+          var len = this.myDataList[this.active2].data.length-1
+          this.myDataList[this.active2].data.splice(len-(this.checked[num]+((this.currentPage-1)*10)), 1)
+        }
+      } else if(this.active1 === 1) {
+        for(let i =0; i<this.checked.length; i++){
+          var num = this.checked.length-1-i;
+          var len = this.myGraphList[this.active2].data.length-1
+          this.myGraphList[this.active2].data.splice(len-(this.checked[num]+((this.currentPage-1)*10)), 1)
+        }
+      }
+      this.checked = []
+      var page = this.currentPage
+      this.setPageNum()
+      if(this.currentPage > this.totalPage){
+        this.currentPage = this.totalPage
+      }
+      this.$refs.paginate.handlePageSelected(this.currentPage)
     },
     
     pageChange (page) {
@@ -314,11 +391,11 @@ export default {
         const len = this.myGraphList[this.active2].data.length
         this.totalPage = Math.ceil(len / 10)
       }
-      this.$refs.paginate.selectFirstPage()
+      //this.$refs.paginate.selectFirstPage()
     },
 
     clickGraph ( idx ){
-      const data = this.myGraphList[this.active2].data.slice().reverse()[idx];
+      const data = this.myGraphList[this.active2].data.slice().reverse()[idx]
       this.selectGraphIdx = this.$store.state.myGraph[this.active2].data.length-idx-1
       this.showGraphData = data
     },
@@ -332,6 +409,72 @@ export default {
         this.active2 = active
         this.$forceUpdate()
       }
+    },
+
+    closeDashbAddPopup () {
+      
+      this.addGraphData = []
+      this.myDashboardList = this.$store.state.myDashboard
+      this.checked = []
+      const active = this.active2
+      this.active2 = -1
+      this.active2 = active
+      this.$forceUpdate()
+      const owner = this
+      setTimeout(() => {
+        owner.setMainSize()
+      })
+    },
+
+    addGraphDashboard( e ) {
+      if(this.checked.length === 0) {
+        alert('그래프 리스트를 선택해 주세요.')
+      } else {
+        this.addGraphData = []
+        for(let i=0; i<this.checked.length; i++) {
+          const data = this.myGraphList[this.active2].data.slice().reverse()[this.checked[i]+((this.currentPage-1)*10)]
+          this.addGraphData.push(data)
+
+          
+        }
+      }
+    },
+
+    setMainSize() {
+      const elements = this.$el.querySelectorAll('.lnb > li');
+      elements.forEach(( el ) => {
+        if(el.classList[0] == 'active') {
+          el.style.height= '50px'
+        } else {
+          el.style.height = (50 + el.querySelector('ul').offsetHeight)+'px'
+        }
+      })
+    },
+
+    getMin ( data ) {
+      var lastDate = new Date(data.graphData[0].data[data.graphData[0].data.length-1][0])
+      lastDate.setYear(lastDate.getFullYear() - parseInt(data.graphRange))
+      return lastDate.getTime()
+    },
+    getMax ( data ) {
+      return data.graphData[0].data[data.graphData[0].data.length-1][0]
+    },
+
+    clickDashboardChange () {
+      this.changeDashboadData = this.myDashboardList[this.active2].data
+    },
+
+    closeDashbChangePopup() {
+      this.changeDashboadData = null
+      this.myDashboardList = this.$store.state.myDashboard
+      const active = this.active2
+      this.active2 = -1
+      this.active2 = active
+      this.$forceUpdate()
+      const owner = this
+      // setTimeout(() => {
+      //   owner.setMainSize()
+      // })
     }
   }
 
@@ -342,67 +485,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-/* .mypage{
-      position: absolute;
-      left:0;
-      top:0;
-      width:100%;
-  } */
-
-  a{
-    cursor:pointer;
-  }
-/* ul{
-  padding:0;
-  margin:0;
-  list-style: none;
-}
-.menu-con{
-  float:left;
-  width:200px;
-  text-align: left;
-  border:solid 1px #ccc;
-  margin-left:50px;
-}
-.menu-con a{
-  cursor: pointer;
-}
-.menu-con > ul > li > ul{
-  margin-left:20px;
-}
-.menu-con > ul > li{
-  padding:10px;
-}
-.menu-con > ul > li > ul > li{
-  padding:10px;
-}
-
-.menu-con > ul > li.active .main-title{
-  background-color:#ccc;
-}
-
-.menu-con > ul > li > ul > li.active .sub-title{
-  background-color:#ccc;
-}
-
-.tabe-con {
-  float:left;
-  width:1000px;
-  margin-left:50px;
-}
-table th,
-table td{
-  text-align:left;
-  border-top: solid 1px #ccc;
-  border-bottom:solid 1px #ccc;
-  padding:10px 0;
-}
-table td a{
+a{
   cursor:pointer;
 }
-table td a:hover {
-  text-decoration: underline;
-} */
-
-
 </style>

@@ -188,7 +188,7 @@ export default {
   },
 
   created () {
-    this.setCategory(this.treeData, '' )
+    this.setCategory(this.treeData, '', '' )
     this.myDataTree = [{
       expanded:true,
       title:'데이터',
@@ -218,11 +218,13 @@ export default {
   },
   
   methods : {
-    setCategory ( ar, parent ) {
+    setCategory ( ar, parent, agency ) {
       this.categoryData.forEach(( data ) => {
           if(data.parent_cat_id === parent) {
+            if(agency === '') {
               var obj = {
                   id: data.cat_id,
+                  agencyId: data.agency_id,
                   dataid: data.dataset_id,
                   pid: data.parent_cat_id,
                   title: data.cat_nm,
@@ -230,7 +232,22 @@ export default {
                   children: []
               }
               ar.push(obj);
-              this.setCategory(obj.children, obj.id)
+              this.setCategory(obj.children, obj.id, obj.agencyId)
+            } else {
+              if(data.agency_id === agency){
+                var obj = {
+                    id: data.cat_id,
+                    agencyId: data.agency_id,
+                    dataid: data.dataset_id,
+                    pid: data.parent_cat_id,
+                    title: data.cat_nm,
+                    expanded: false,
+                    children: []
+                }
+                ar.push(obj);
+                this.setCategory(obj.children, obj.id, obj.agencyId)
+              }
+            }
           }
       });
     },
