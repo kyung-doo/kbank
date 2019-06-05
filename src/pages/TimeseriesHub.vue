@@ -186,14 +186,6 @@ export default {
 
   created () {
     this.setCategory(this.treeData, '', '' )
-    this.myDataTree = [{
-      expanded:true,
-      title:'데이터',
-      nocheck:true,
-      selDisabled:true,
-      children:this.$store.state.myData
-    }]
-    
   },
 
   mounted () {
