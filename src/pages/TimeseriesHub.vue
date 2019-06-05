@@ -9,11 +9,8 @@
           <div class="searchBlock">
               <div class="searchLine" >
                 <form v-on:submit.prevent="search">
-                  <input type="text" 
-                    v-model.lazy="searchword" 
-                    placeholder="검색어를 입력해 주세요.">
-                  <button type="button" 
-                    @click="search">
+                  <input type="text" v-model="searchword" placeholder="검색어를 입력해 주세요.">
+                  <button type="button" @click="search">
                     <i class="fas fa-search"></i>
                   </button>
                 </form>
@@ -252,8 +249,8 @@ export default {
       });
     },
     
-    search () {
-        this.$refs.tree.searchNodes(this.searchword)
+    search ( e ) {
+      this.$refs.tree.searchNodes(this.searchword)
     },
 
     clickReset () {

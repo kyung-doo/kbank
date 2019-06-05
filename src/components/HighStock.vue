@@ -21,7 +21,7 @@ Exporting(Highcharts);
 
 export default {
     name: 'HighStock',
-    props: ['chartData', 'type', 'height','legend', 'min', 'max'],
+    props: ['chartData', 'type', 'height','legend', 'min', 'max','noRange'],
     data () {
         var owner = this
         return {
@@ -38,6 +38,9 @@ export default {
                     buttons :{
                         enabled: true
                     },
+                },
+                navigator: {
+                    enabled: owner.noRange ? false : true
                 },
                 rangeSelector: 
                 {
@@ -64,12 +67,13 @@ export default {
                             text: '전체'
                         }
                     ],
-                    selected: 5
+                    selected: 5,
+                    enabled:  owner.noRange ? false : true
                 },
                 title: {
                     text: this.seriesTitle
                 },
-                xAxis: {
+                xAxis: [{
                     type: 'datetime',
                     labels: {
                         formatter: function () {
@@ -100,7 +104,7 @@ export default {
                     },
                     min: this.min,
                     max: this.max
-                },
+                }],
                 yAxis: [
                 { 
                     labels: {
@@ -147,12 +151,25 @@ export default {
         chartData ( d ) {
             this.chartOpt.series = this.chartData
             this.initChart()
+        },
+
+        min ( min ) {
+            this.chartOpt.xAxis[0].min = min
+            this.initChart()
+        },
+
+        max ( max ) {
+            this.chartOpt.xAxis[0].max = max
+            this.initChart()
         }
     },
     
     methods: {
         initChart() {
             this.chart = Highcharts.stockChart(this.$el, this.chartOpt)
+            if(this.noRange) {
+                this.$el.querySelector('.highcharts-scrollbar').style.display = 'none'
+            }
         },
 
         changeMinMax (min, max) {

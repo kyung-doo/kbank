@@ -4,8 +4,8 @@
           <div class="modal-content">
               <div class="modal-header">
                   <h1>{{graphData.graphName}}</h1>
-                  <button type="button" class="close">
-                      <img src="/static/img/btn_popClose.png" alt="닫기" @click="closePopup">
+                  <button type="button" class="close" @click="closePopup">
+                      <img src="/static/img/btn_popClose.png" alt="닫기">
                   </button>
               </div>
               <div class="modal-body">
@@ -16,7 +16,15 @@
                 </h2>
 
                 <div class="chartArea" v-if="graphData.graphData.length > 0">
-                  <high-stock ref="highstock" :chart-data="graphData.graphData" :type="graphData.graphType" height="400" :legend="true" :min="getMin" :max="getMax" />
+                  <high-stock ref="highstock" 
+                    :chart-data="graphData.graphData" 
+                    :type="graphData.graphType" 
+                    height="400" 
+                    :legend="true" 
+                    :min="getMin" 
+                    :max="getMax" 
+                    key="graph"
+                    :no-range="noRange ? true : false" />
                 </div>
 
                 <dl class="selectRange mT10 clearfix">
@@ -76,7 +84,7 @@ export default {
       draggable,
       HighStock
     },
-    props: ['data', 'idx1', 'idx2'],
+    props: ['data', 'idx1', 'idx2', 'type'],
     data () {
         return {
           graphData: JSON.parse(JSON.stringify(this.data)),
@@ -94,8 +102,13 @@ export default {
         lastDate.setYear(lastDate.getFullYear() - parseInt(this.range))
         return lastDate.getTime()
       },
+
       getMax () {
         return this.graphData.graphData[0].data[this.graphData.graphData[0].data.length-1][0]
+      },
+
+      noRange () {
+        return this.type === 'graph' ? false : true
       }
     },
 
@@ -117,7 +130,11 @@ export default {
             alert('그래프 이름을 입력해 주세요.')
             return
           }
-          this.$store.state.myGraph[this.idx1].data[this.idx2] = this.graphData
+          if(this.type === 'graph') {
+            this.$store.state.myGraph[this.idx1].data[this.idx2] = this.graphData
+          } else if(this.type === 'dashboard') {
+            this.$store.state.myDashboard[this.idx1].data[this.idx2] = this.graphData
+          }
           this.$emit('close', true)
         } else {
           this.$emit('close', false)

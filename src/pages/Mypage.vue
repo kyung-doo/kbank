@@ -183,9 +183,15 @@
                   </p>
               </div>
               <div class="dashboardBlock clearfix">
-                  <div class="chart" v-for="(list, i) in setDataList" :key="i">
-                    <h2>{{list.graphName}}</h2>
-                    <high-stock :chart-data="list.graphData" :type="list.graphType" height="500" :legend="true"  :min="getMin(list)" :max="getMax(list)" />
+                  <div class="chart" v-for="(list, i)  in setDataList" :key="i">
+                    <h2><a @click="clickGraph2(i)">{{list.graphName}}</a></h2>
+                    <high-stock :chart-data="list.graphData" 
+                    :type="list.graphType" 
+                    :no-range="true" 
+                    height="500" 
+                    :legend="true" 
+                    :min="list.min" 
+                    :max="list.max" />
                   </div>
                   <div class="no-data" v-if="setDataList.length == 0">
                     리스트가 없습니다.
@@ -208,6 +214,7 @@
         :idx1="active2"
         :idx2="selectGraphIdx"
         :data="showGraphData"
+        :type="graphPopType"
         @close="closeGraphPopup"  />
     </transition>
     <!-- //graph-pop -->
@@ -269,7 +276,8 @@ export default {
       showGraphData: null,
       addGraphData:[],
       selectGraphIdx:0,
-      changeDashboadData: null
+      changeDashboadData: null,
+      graphPopType:''
     }
   },
 
@@ -284,8 +292,15 @@ export default {
         return data.slice(10*(this.currentPage-1), 10*(this.currentPage))
       } else if(this.active1 === 2) {
         data = this.myDashboardList[this.active2].data.slice().reverse();
-        return data
+        data.forEach((item) => {
+          var lastDate = new Date(item.graphData[0].data[item.graphData[0].data.length-1][0])
+          lastDate.setYear(lastDate.getFullYear() - parseInt(item.graphRange))
+          item.min = lastDate.getTime()
+          item.max = item.graphData[0].data[item.graphData[0].data.length-1][0]
+        })
+        return data.slice()
       } 
+      this.$forceUpdate()
     },
     
     checkAll : {
@@ -329,21 +344,25 @@ export default {
     clickList (idx1, idx2) {
       this.active1 = idx1
       this.active2 = idx2
-      this.$el.querySelectorAll('.lnb > li').forEach( ( el1, i ) => {
+
+      const main =  this.$el.querySelectorAll('.lnb > li')
+      for(let i=0; i<main.length; i++) {
         if(i == this.active1) {
-          el1.querySelectorAll('ul > li').forEach( ( el2, j ) => {
+          const sub = main[i].querySelectorAll('ul > li');
+          for(let j=0; j<sub.length; j++) {
             if(j == this.active2) {
-              el2.classList.add("active")
+              sub[j].classList.add("active")
             } else {
-              el2.classList.remove("active")
+              sub[j].classList.remove("active")
             }
-          });
+          }
         } else {
-          el1.querySelectorAll('ul > li').forEach( ( el2, j ) => {
-            el2.classList.remove("active")
-         });
+          const sub = main[i].querySelectorAll('ul > li');
+          for(let j=0; j<sub.length; j++) {
+            sub[j].classList.remove("active")
+          }
         }
-      });
+      }
       this.checked = []
       this.currentPage = 1;
       this.setPageNum()
@@ -396,7 +415,15 @@ export default {
 
     clickGraph ( idx ){
       const data = this.myGraphList[this.active2].data.slice().reverse()[idx]
+      this.graphPopType = 'graph'
       this.selectGraphIdx = this.$store.state.myGraph[this.active2].data.length-idx-1
+      this.showGraphData = data
+    },
+
+    clickGraph2 ( idx ) {
+      const data = this.myDashboardList[this.active2].data.slice().reverse()[idx]
+      this.graphPopType = 'dashboard'
+      this.selectGraphIdx = this.$store.state.myDashboard[this.active2].data.length-idx-1
       this.showGraphData = data
     },
 
@@ -404,6 +431,7 @@ export default {
       this.showGraphData = null
       if(update) {
         this.myGraphList = this.$store.state.myGraph
+        this.myDashbardList = this.$store.state.myDashbard
         const active = this.active2
         this.active2 = -1
         this.active2 = active
@@ -442,22 +470,13 @@ export default {
 
     setMainSize() {
       const elements = this.$el.querySelectorAll('.lnb > li');
-      elements.forEach(( el ) => {
-        if(el.classList[0] == 'active') {
-          el.style.height= '50px'
+      for(let i=0; i< elements.length; i++){
+        if(elements[i].classList[0] == 'active') {
+          elements[i].style.height= '50px'
         } else {
-          el.style.height = (50 + el.querySelector('ul').offsetHeight)+'px'
+          elements[i].style.height = (50 + elements[i].querySelector('ul').offsetHeight)+'px'
         }
-      })
-    },
-
-    getMin ( data ) {
-      var lastDate = new Date(data.graphData[0].data[data.graphData[0].data.length-1][0])
-      lastDate.setYear(lastDate.getFullYear() - parseInt(data.graphRange))
-      return lastDate.getTime()
-    },
-    getMax ( data ) {
-      return data.graphData[0].data[data.graphData[0].data.length-1][0]
+      }
     },
 
     clickDashboardChange () {
@@ -472,9 +491,6 @@ export default {
       this.active2 = active
       this.$forceUpdate()
       const owner = this
-      // setTimeout(() => {
-      //   owner.setMainSize()
-      // })
     }
   }
 

@@ -379,12 +379,15 @@ body{font-family:'Noto Sans KR', sans-serif; background-color: #efefef; font-wei
 #wrapper{ width: 100%;}
 #indexHeader{position: relative; height: 425px; box-sizing: border-box; text-align: center; background: url(/static/img/bg_index.png) no-repeat 50% 50%; background-size: cover; padding-top: 100px; color: #fff;}
 #headTop{height: 40px; background-color: #00acdc;}
+#headTop h1{float: left; } /* 0605 */
+#headTop h1 a {line-height: 40px; color: #fff; font-size: 20px}
 #headTop ul.topMenu{float: right;}
 #headTop ul.topMenu li{float: left;}
 #headTop ul.topMenu li a{color: #fff; line-height: 40px; font-weight: 300; text-transform: uppercase;}
 #headTop ul.topMenu li a:hover{text-decoration: underline;}
 #headTop ul.topMenu li:before{content: "|"; color: #fff; font-size: 11px; float: left; line-height: 40px; width: 30px; text-align: center; opacity: 0.5;}
 #headTop ul.topMenu li:first-child:before{display: none;}
+#headTop ul.topMenu li a.router-link-active{ text-decoration: underline; font-weight: 500;}
 #indexHeader h1{margin-bottom: 40px;}
 #indexHeader h2{font-size: 24px; font-weight: 400; margin-bottom:40px;}
 #indexHeader .searchLine{width: 700px; border-radius: 5px; margin: auto; box-sizing: border-box; background-color: #fff;padding: 0 10px;}
@@ -412,15 +415,15 @@ body{font-family:'Noto Sans KR', sans-serif; background-color: #efefef; font-wei
 #footer .contents_box .address{color: #333333;}
 #footer .contents_box .copyright{color: #a9a9a9; margin-top: 5px; font-weight:300;}
 
-.indexMenu{padding:100px 0; text-align: center;}
+.indexMenu{padding:50px 0; text-align: center;}
 .indexMenu li{display: inline-block; margin: 0 10px;}
 .indexMenu li a{display: block; width: 230px; height: 320px; box-sizing: border-box; padding-top: 220px; color: #4a4a4a; font-size: 24px; font-weight: 400; box-shadow:0 0 5px rgba(0,0,0,0.05);  background-color: #fff; border: 1px solid #ccc; border-radius: 5px; transition: all 0.2s ease; position: relative;}
 .indexMenu li a span{display: block; font-weight: 300;}
-.indexMenu li:nth-child(1) a{background:#fff url(/static/img/ico_indexMenu01.png) no-repeat center 60px;}
-.indexMenu li:nth-child(2) a{background:#fff url(/static/img/ico_indexMenu01.png) no-repeat center 60px;}
-.indexMenu li:nth-child(3) a{background:#fff url(/static/img/ico_indexMenu01.png) no-repeat center 60px;}
-.indexMenu li:nth-child(4) a{background:#fff url(/static/img/ico_indexMenu01.png) no-repeat center 60px;}
-.indexMenu li:nth-child(5) a{background:#fff url(/static/img/ico_indexMenu01.png) no-repeat center 60px;}
+.indexMenu li:nth-child(1) a{background:#fff url(../img/ico_indexMenu01.png) no-repeat center 36px;}
+.indexMenu li:nth-child(2) a{background:#fff url(../img/ico_indexMenu02.png) no-repeat center 36px;}
+.indexMenu li:nth-child(3) a{background:#fff url(../img/ico_indexMenu03.png) no-repeat center 36px;}
+.indexMenu li:nth-child(4) a{background:#fff url(../img/ico_indexMenu04.png) no-repeat center 36px;}
+.indexMenu li:nth-child(5) a{background:#fff url(../img/ico_indexMenu01.png) no-repeat center 36px;}
 .indexMenu li a:hover{transform: translateY(-10px); z-index: 10; box-shadow:0 0 20px rgba(0,0,0,0.3); color: #005596;}
 
 #contents {
@@ -462,7 +465,7 @@ body{font-family:'Noto Sans KR', sans-serif; background-color: #efefef; font-wei
 .series-group li:last-child{margin-bottom: 0;}
 .series-group.no-data:after{display:block;content: "자료가 없습니다."; text-align: center; color: #999; line-height: 100px; font-size: 18px;}
 .drag-area li:last-child{margin-bottom: 0;}
-.series-item{min-height: 40px; background-color: #fff; padding: 10px 12px; line-height: 140%; position: relative;box-shadow:0 0 10px rgba(0,0,0,0.1); border-radius: 3px; margin-bottom: 5px; cursor: move; padding-right: 40px; font-size: 14px;}
+.series-item{min-height: 40px; background-color: #fff; padding: 4px 12px; line-height: 140%; position: relative;box-shadow:0 0 10px rgba(0,0,0,0.1); border-radius: 2px; margin-bottom: 5px; cursor: move; padding-right: 40px; font-size: 14px;}
 .series-item .icon{float: left; height: 24px; line-height: 24px; display: inline-block; margin-right: 10px;  cursor: move; position: absolute; left: 12px; top: 50%; margin-top: -13px;}  /* 0604 */
 .series-item .listRight{position: absolute; right: 12px; top: 50%; margin-top: -9px;}
 .series-item .listRight i{opacity: 0.3; transition: all 0.4s ease;}
@@ -566,7 +569,7 @@ body{font-family:'Noto Sans KR', sans-serif; background-color: #efefef; font-wei
 /* mypage */
 .blockWhite{background-color: #fff; border: 1px solid #e6e8ea; border-radius: 5px; box-shadow:0 0 5px rgba(0,0,0,0.1);}
 .blockWhite:after{content: ""; display: block; clear: both;}
-.contentsBlock{min-width: 1140px; max-width: 1600px; margin: auto;}
+.contentsBlock{/*min-width: 1140px; max-width: 1600px;*/ margin: auto;}
 .contentHead{border-bottom: 1px solid #d3dae4; position: relative;}
 .contentHead h2{height: 80px; line-height: 80px; font-size: 20px; padding:0 30px; font-weight: 400;}
 .contentHead h2 span{color: #00acdc;}
@@ -649,6 +652,31 @@ body{font-family:'Noto Sans KR', sans-serif; background-color: #efefef; font-wei
 .dataBtn{float: right; margin-top: 5px;}
 .drag-area.no-select .series-item{padding-right: 50px;}
 .dashboardBlock{border: 1px solid #eae9e9; padding: 10px; background-color: #efefef ;}
-.dashboardBlock .chart{width: calc(50% - 20px); float: left; margin: 10px; background-color: #fff;}
+.dashboardBlock .chart{width: calc(33.333% - 20px); float: left; margin: 10px; background-color: #fff;}
 .dashboardBlock .chart h2{text-align: center;padding:15px 0;font-size:16px}
 .dashboardBlock .no-data{text-align: center;padding:15px 0}
+
+
+#searchResult{background-color: #fff; /*display: none;*/}
+#searchResult .contents_box{max-width: 990px; padding: 50px 0; margin: auto; min-width:0; padding-bottom: 100px;}
+#searchResult  h3{font-size: 18px;}
+#searchResult  h3 span{color: #00acdc;}
+#searchResult .resultNum{font-size: 18px; margin-top: 15px; padding-bottom: 20px; border-bottom: 1px dashed #ccc;}
+#searchResult .resultNum li{float: left; margin-right: 30px;}
+#searchResult .resultNum li span{display: inline-block; margin-right: 5px; margin-left: 5px; color: #00acdc;}
+
+#searchResult .resultList{padding-left: 20px;}
+#searchResult .resultList dl{margin-top: 30px;}
+#searchResult .resultList dl dt{ font-weight: normal; font-size: 16px;}
+#searchResult .resultList dl dd{padding-left: 20px; margin-top: 10px;}
+#searchResult .resultList dl dd a{transition: all 0.2s ease;}
+#searchResult .resultList dl dd a:hover{color: #00acdc; text-decoration: underline;}
+
+.linkList{margin: auto;}
+.linkList h2{text-align: center; padding-top: 30px; padding-bottom: 30px; font-size: 30px; display:block;}
+.linkList ul{text-align: center; max-width: 1200px; margin: auto;}
+.linkList li {display: inline-block; margin:5px 10px; float: left;}
+.linkList li a{display: table; background-color: #fff; height: 90px; border-radius: 5px; width: 279px; border: 1px solid #ccc; box-shadow: 0 0 10px rgba(0,0,0,0.1); padding-left: 90px; position: relative; padding-right: 20px; font-size: 16px; transition: all 0.2s ease;}
+.linkList li a span{display: table-cell; width: 100%; height: 100%; vertical-align: middle; text-align: left;}
+.linkList li a img{position: absolute; left: 20px; top: 50%; transform: translateY(-50%); width: 50px;}
+.linkList li a:hover{transform: translateY(-5px); color: #00acdc;}

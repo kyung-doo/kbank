@@ -3,13 +3,18 @@
     
     <div id="headTop">
         <div class="contents_box">
+            <h1><router-link to="/">데이터 분석반 BokReIT</router-link></h1>
             <ul class="topMenu">
+                <li><router-link to="/timeseries-hub">Timeseries Hub</router-link></li>
+                <li><router-link to="/microdata-hub">Microdata Hub</router-link></li>
+                <li><a href="#">Graph Hub</a></li>
+                <li><a href="#">Reference Hub</a></li>
                 <li><router-link to="/mypage">마이페이지</router-link></li>
             </ul>
         </div>
     </div>
 
-    <header id="subHeader">
+    <!-- <header id="subHeader">
         <div class="contents_box">
             <h1><router-link to="/"><img src="../static/img/img_logo_sub.png" alt="한국은행"></router-link></h1>
             <ul class="nav clearfix">
@@ -19,7 +24,7 @@
                 <li><a href="#">Reference Hub</a></li>
             </ul>
         </div>
-    </header>
+    </header> -->
 
     <section id="contents">
       <!-- <transition name="fade" mode="out-in" :duration="300"> -->
@@ -27,12 +32,12 @@
       <!-- </transition>   -->
     </section>
 
-    <footer id="footer">
+    <!-- <footer id="footer">
         <div class="contents_box">
             <p class="address">서울특별시 중구 세종대로 67(태평로2가) / 대표전화 :  02 - 759 - 4114</p>
             <p class="copyright">COPYRIGHT 2019 THE BANK OF KOREA. ALL RIGHTS RESERVED.</p>
         </div>
-    </footer>
+    </footer> -->
   </div>
 </template>
 
@@ -68,9 +73,8 @@ export default {
     reiszeWindow () {
       var winHeight = window.innerHeight
       var headHeight = document.querySelector('#headTop').offsetHeight
-      var sheadHeight = document.querySelector('#subHeader').offsetHeight
-      var footHeight = document.querySelector('#footer').offsetHeight
-      var outHeight = headHeight + sheadHeight + footHeight
+      var outHeight = headHeight
+      
       
       if(document.querySelector('.timeseries')){
         document.querySelector('#contents').style.height = (winHeight - outHeight)+'px'
@@ -79,14 +83,16 @@ export default {
       }
 
       if(document.querySelector('.blockcon')) {
-        document.querySelectorAll('.blockcon').forEach( ( el ) => {
-          el.style.height = (winHeight - outHeight-40)+'px'
-        });
+        var block = document.querySelectorAll('.blockcon')
+        for(let i = 0; i<block.length; i++ ) {
+          block[i].style.height = (winHeight - outHeight-40)+'px'
+        }
       }
       if(document.querySelector('.resizebar')){
-        document.querySelectorAll('.resizebar').forEach( ( el ) => {
-          el.style.height = (winHeight - outHeight-40)+'px'
-        });
+        var resizeBar = document.querySelectorAll('.resizebar')
+        for(let i = 0; i<block.length; i++ ) {
+          if(resizeBar[i]) resizeBar[i].style.height = (winHeight - outHeight-40)+'px'
+        }
       }
 
       if(document.querySelector('.mypage')){
@@ -95,6 +101,10 @@ export default {
 
       if(document.querySelector('.main')){
         document.querySelector('.main').style.minHeight = (winHeight - outHeight)+'px'
+      }
+
+      if(document.querySelector('.microdata')){
+        document.querySelector('.microdata .contentsBlock').style.minHeight = (winHeight - outHeight-40)+'px'
       }
     }
   }
@@ -144,21 +154,32 @@ export default {
 .halo-tree{
   margin-left:10px;
 }
+.halo-tree ul{
+  padding-left:10px !important;
+}
 .halo-tree .tree-node-el{
   position: relative;
 }
+.halo-tree li{
+    padding:0 0px 5px 15px !important;
+}
+
 .halo-tree .tree-open{
   line-height: 9px !important;
 }
 .halo-tree .tree-expand{
   position:absolute;
-  left:0;
-  top:2px;
+  left:2px;
+  top:9px;
+  cursor:pointer;
+  height:15px !important;
 }
 .halo-tree .node-title{
   cursor:default;
   display: inline-block;
   margin-left:20px !important;
+  position: relative;
+  top: 4px;
 }
 .halo-tree .node-title.no-children{
   margin-left:0 !important;

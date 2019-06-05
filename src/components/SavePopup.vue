@@ -4,8 +4,8 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h1>마이페이지 저장</h1>
-                    <button type="button" class="close">
-                        <img src="/static/img/btn_popClose.png" alt="닫기" @click="closePopup">
+                    <button type="button" class="close"  @click="closePopup">
+                        <img src="/static/img/btn_popClose.png" alt="닫기">
                     </button>
                 </div>
                 <div class="modal-body">
