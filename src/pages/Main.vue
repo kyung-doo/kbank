@@ -1,7 +1,7 @@
 <template>
   <div class="main">
       <header id="indexHeader">
-        <h1><img src="/static/img/logo.png" width="240" alt="한국은행">222</h1>
+        <h1><img src="/static/img/logo.png" width="240" alt="한국은행">2221111</h1>
         <!--<h2>데이터 분석반 BokReIT</h2>-->
         <div class="searchLine">
           <form v-on:submit.prevent="clickSearch">
