@@ -5,15 +5,12 @@
           <div class="linkList">
               <h2>Microdata Hub</h2>
               <ul class="clearfix">
-                  <li><a href="#"><img src="/static/img/icon/icon-01.png" alt=""><span>Link Name<br>Link Name</span></a></li>
-                  <li><a href="#"><img src="/static/img/icon/icon-02.png" alt=""><span>Link Name <br>Link Name <br>Link Name</span></a></li>
-                  <li><a href="#"><img src="/static/img/icon/icon-03.png" alt=""><span>Link Name</span></a></li>
-                  <li><a href="#"><img src="/static/img/icon/icon-04.png" alt=""><span>Link Name</span></a></li>
-                  <li><a href="#"><img src="/static/img/icon/icon-05.png" alt=""><span>Link Name</span></a></li>
-                  <li><a href="#"><img src="/static/img/icon/icon-06.png" alt=""><span>Link Name</span></a></li>
-                  <li><a href="#"><img src="/static/img/icon/icon-07.png" alt=""><span>Link Name</span></a></li>
-                  <li><a href="#"><img src="/static/img/icon/icon-08.png" alt=""><span>Link Name</span></a></li>
-                  <li><a href="#"><img src="/static/img/icon/set/edit.png" alt=""><span>Link Name</span></a></li>
+                  <li class="size2x2"><a href="#"><img src="/static/img/icon/icon-01.png" alt=""><span>Public<br>전행 공개 자료</span></a></li>
+                  <li><a href="#"><img src="/static/img/icon/icon-03.png" alt=""><span>국제국</span></a></li>
+                  <li><a href="#"><img src="/static/img/icon/icon-04.png" alt=""><span>금융시장국</span></a></li>
+                  <li><a href="#"><img src="/static/img/icon/icon-07.png" alt=""><span>통화정책국</span></a></li>
+                  <li><a href="#"><img src="/static/img/icon/icon-08.png" alt=""><span>조사국</span></a></li>
+                  <li class="size2x1"><a href="#"><img src="/static/img/icon/set/edit.png" alt=""><span>주제별 데이터</span></a></li>
                   <li><a href="#"><img src="/static/img/icon/set/cloud-computing-1.png" alt=""><span>Link Name</span></a></li>
                   <li><a href="#"><img src="/static/img/icon/set/checked.png" alt=""><span>Link Name</span></a></li>
                   <li><a href="#"><img src="/static/img/icon/set/add-1.png" alt=""><span>Link Name</span></a></li>
@@ -24,7 +21,6 @@
                   <li><a href="#"><img src="/static/img/icon/set/bluetooth-1.png" alt=""><span>Link Name</span></a></li>
                   <li><a href="#"><img src="/static/img/icon/set/bookmark.png" alt=""><span>Link Name</span></a></li>
                   <li><a href="#"><img src="/static/img/icon/set/broken-link.png" alt=""><span>Link Name</span></a></li>
-                  <li><a href="#"><img src="/static/img/icon/set/internet.png" alt=""><span>Link Name</span></a></li>
                   <li><a href="#"><img src="/static/img/icon/set/map-1.png" alt=""><span>Link Name</span></a></li>
                   <li><a href="#"><img src="/static/img/icon/set/map-location.png" alt=""><span>Link Name</span></a></li>
                   <li><a href="#"><img src="/static/img/icon/set/navigation.png" alt=""><span>Link Name</span></a></li>

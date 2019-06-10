@@ -1,8 +1,6 @@
 <template>
   <div class="main">
       <header id="indexHeader">
-        <h1><img src="/static/img/logo.png" width="240" alt="한국은행">222111111111111111</h1>
-        <!--<h2>데이터 분석반 BokReIT</h2>-->
         <div class="searchLine">
           <form v-on:submit.prevent="clickSearch">
             <input type="text" placeholder="검색어를 입력해 주세요." v-model="searchKeyword">
@@ -14,7 +12,7 @@
     <section id="contents">
         <div class="contents_box">
             <ul class="indexMenu">
-                <li><router-link to="/timeseries-hub">Timeseires<span>Hub</span></router-link></li>
+                <li><router-link to="/timeseries-hub">Timeseries<span>Hub</span></router-link></li>
                 <li><router-link to="/microdata-hub">Microdata<span>Hub</span></router-link></li>
                 <li><a href="#">Graph<span>Hub</span></a></li>
                 <li><a href="#">Reference<span>Hub</span></a></li>

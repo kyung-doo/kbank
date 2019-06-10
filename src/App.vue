@@ -3,7 +3,7 @@
     
     <div id="headTop">
         <div class="contents_box">
-            <h1><router-link to="/">데이터 분석반 BokReIT</router-link></h1>
+            <h1><router-link to="/">데이터 분석반 BOKReit</router-link></h1>
             <ul class="topMenu">
                 <li><router-link to="/timeseries-hub">Timeseries Hub</router-link></li>
                 <li><router-link to="/microdata-hub">Microdata Hub</router-link></li>

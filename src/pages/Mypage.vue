@@ -179,6 +179,8 @@
               <div class="titleBlock clearfix">
                   <h3><i class="far fa-folder-open"></i> - {{myDashboardList[active2].title}}</h3>
                   <p class="dataBtn">
+                    <button type="button" class="btn btn-xs btn-blue btn-short"><i class="fas fa-sync-alt mR5"></i> 데이터 업데이트</button>
+                    <button type="button" class="btn btn-xs btn-blue btn-short"><i class="fas fa-share-square mR3"></i> 그래프 허브로 전송</button>
                     <button type="button" class="btn btn-xs btn-blue btn-short" @click="clickDashboardChange"><i class="fas fa-exchange-alt mR5"></i> 그래프 순서변경</button>
                   </p>
               </div>
