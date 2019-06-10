@@ -7,7 +7,7 @@
             <ul class="topMenu">
                 <li><router-link to="/timeseries-hub">Timeseries Hub</router-link></li>
                 <li><router-link to="/microdata-hub">Microdata Hub</router-link></li>
-                <li><a href="#">Graph Hub</a></li>
+                <li><router-link to="/graph-hub">Graph Hub</router-link></li>
                 <li><a href="#">Reference Hub</a></li>
                 <li><router-link to="/mypage">마이페이지</router-link></li>
             </ul>

@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Main from '@/pages/Main'
 import TimeseriesHub from '@/pages/TimeseriesHub'
 import MicrodataHub from '@/pages/MicrodataHub'
+import GraphHub from '@/pages/GraphHub'
 import Mypage from '@/pages/Mypage'
 
 Vue.use(Router)
@@ -24,6 +25,11 @@ export default new Router({
       path: '/microdata-hub',
       name: 'MicrodataHub',
       component: MicrodataHub
+    },
+    {
+      path: '/graph-hub',
+      name: 'GraphHub',
+      component: GraphHub
     },
     {
       path: '/mypage',

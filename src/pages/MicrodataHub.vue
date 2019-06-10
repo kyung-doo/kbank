@@ -6,7 +6,7 @@
               <h2>Microdata Hub</h2>
               <ul class="clearfix">
                   <li class="size2x2"><a href="#"><img src="/static/img/icon/icon-01.png" alt=""><span>Public<br>전행 공개 자료</span></a></li>
-                  <li><a href="#"><img src="/static/img/icon/icon-03.png" alt=""><span>국제국</span></a></li>
+                  <li><router-link to="/graph-hub"><img src="/static/img/icon/icon-03.png" alt=""><span>국제국</span></router-link></li>
                   <li><a href="#"><img src="/static/img/icon/icon-04.png" alt=""><span>금융시장국</span></a></li>
                   <li><a href="#"><img src="/static/img/icon/icon-07.png" alt=""><span>통화정책국</span></a></li>
                   <li><a href="#"><img src="/static/img/icon/icon-08.png" alt=""><span>조사국</span></a></li>
