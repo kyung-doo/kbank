@@ -14,7 +14,7 @@
             <ul class="indexMenu">
                 <li><router-link to="/timeseries-hub">Timeseries<span>Hub</span></router-link></li>
                 <li><router-link to="/microdata-hub">Microdata<span>Hub</span></router-link></li>
-                <li><a href="#">Graph<span>Hub</span></a></li>
+                <li><router-link to="/graph-hub">Graph<span>Hub</span></router-link></li>
                 <li><a href="#">Reference<span>Hub</span></a></li>
             </ul>
         </div>
