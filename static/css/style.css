@@ -432,7 +432,7 @@ body{font-family:'Noto Sans KR', sans-serif; background-color: #efefef; font-wei
 }
 #contents .contents_box{box-sizing: border-box; padding-top: 20px; padding-bottom: 20px; }
 #contents .graphBlock{height: 100%; position: relative;}
-#contents .graphBlock .resizebar{height: 100%; position: relative; width: 1%; float: left; cursor: col-resize;}
+#contents .graphBlock .resizebar{height: 100%; position: relative; width: 1%; float: left; /*cursor: col-resize;*/}
 #contents .graphBlock .blockcon{height: 100%; float: left;  background-color: #fff; border-radius: 6px; box-shadow:0 0 10px rgba(0,0,0,0.3); position: relative; box-sizing: border-box; overflow: hidden;}
 #contents .graphBlock .blockcon:nth-child(1){width: 30%;  padding-bottom: 20px;}
 #contents .graphBlock .blockcon:nth-child(3){width: 30%;   padding-bottom: 20px; padding-right:0px;}
