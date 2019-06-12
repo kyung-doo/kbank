@@ -32,12 +32,12 @@
       <!-- </transition>   -->
     </section>
 
-    <!-- <footer id="footer">
+    <footer id="footer" v-if="$router.currentRoute.name === 'Main'">
         <div class="contents_box">
             <p class="address">서울특별시 중구 세종대로 67(태평로2가) / 대표전화 :  02 - 759 - 4114</p>
             <p class="copyright">COPYRIGHT 2019 THE BANK OF KOREA. ALL RIGHTS RESERVED.</p>
         </div>
-    </footer> -->
+    </footer>
   </div>
 </template>
 
@@ -100,7 +100,7 @@ export default {
       }
 
       if(document.querySelector('.main')){
-        document.querySelector('.main').style.minHeight = (winHeight - outHeight)+'px'
+        document.querySelector('.main').style.minHeight = (winHeight - outHeight - 101)+'px'
       }
 
       if(document.querySelector('.microdata')){
@@ -112,24 +112,6 @@ export default {
 </script>
 
 <style>
-/* #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-} */
-
-/* .fade-enter-active, 
-.fade-leave-active {
-  transition: top .3s;
-}
-.fade-enter-active > div, 
-.fade-leave-active > div {
-  transition: all .3s;
-} */
-
 
 .fade-enter > div, 
 .fade-leave-to > div {
@@ -204,20 +186,4 @@ export default {
 .ghost{
     opacity:0.5;
 }
-
-/* .pagenation > li {
-  display: inline-block;
-}
-.pagenation > li > a {
-  display: inline-block;
-  border:solid 1px #ccc;
-  padding: 3px;
-  min-width:20px;
-  margin:2px;
-}
-.pagenation > li.active > a{
-  background-color:#38a89d;
-  color:#fff;
-} */
-
 </style>

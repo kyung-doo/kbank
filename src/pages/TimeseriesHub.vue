@@ -84,7 +84,7 @@
 
             <div class="content">
               <draggable
-                :class="['drag-area', 'list-group', {'no-data':isNodata2}]"
+                :class="['drag-area', 'list-group', {'no-data':isNodata}]"
                 tag="ul" 
                 :list="checkSeries"
                 ghost-class="ghost"
@@ -178,7 +178,7 @@ export default {
   },
 
   computed : {
-    isNodata2 () {
+    isNodata () {
       if(this.checkSeries.length == 0) return true
       return false
     }
